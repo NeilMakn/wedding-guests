@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @rsvp.name %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @rsvp.lastname %>
+</p>
+
+<p>
+  <strong>Partysize:</strong>
+  <%= @rsvp.partysize %>
+</p>
+
+<%= link_to 'Edit', edit_rsvp_path(@rsvp) %> |
+<%= link_to 'Back', rsvps_path %>
