@@ -1,3 +1,4 @@
+
 <%= form_for(@rsvp) do |f| %>
   <% if @rsvp.errors.any? %>
     <div id="error_explanation">
@@ -27,3 +28,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= link_to 'logout', destroy_guest_session_path, :method => :delete %>
+
+
