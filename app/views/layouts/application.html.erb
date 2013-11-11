@@ -8,7 +8,9 @@
 </head>
 <body>
 
+
 <%= yield %>
 
+<%= link_to 'logout', destroy_guest_session_path %>
 </body>
 </html>

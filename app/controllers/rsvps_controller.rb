@@ -1,5 +1,4 @@
 class RsvpsController < ApplicationController
-  before_action :set_rsvp, only: [:show, :edit, :update, :destroy]
 
   # GET /rsvps
   # GET /rsvps.json
@@ -10,6 +9,7 @@ class RsvpsController < ApplicationController
   # GET /rsvps/1
   # GET /rsvps/1.json
   def show
+    @rsvp = Rsvp.find(params[:id])
   end
 
   # GET /rsvps/new
@@ -19,6 +19,7 @@ class RsvpsController < ApplicationController
 
   # GET /rsvps/1/edit
   def edit
+    @rsvp = Rsvp.find(params[:id])
   end
 
   # POST /rsvps
@@ -28,7 +29,7 @@ class RsvpsController < ApplicationController
 
     respond_to do |format|
       if @rsvp.save
-        format.html { redirect_to @rsvp, notice: 'Rsvp was successfully created.' }
+        format.html { redirect_to @rsvp, notice: 'Thank you for reserving your spot!' }
         format.json { render action: 'show', status: :created, location: @rsvp }
       else
         format.html { render action: 'new' }
@@ -40,20 +41,24 @@ class RsvpsController < ApplicationController
   # PATCH/PUT /rsvps/1
   # PATCH/PUT /rsvps/1.json
   def update
-    respond_to do |format|
-      if @rsvp.update(rsvp_params)
-        format.html { redirect_to @rsvp, notice: 'Rsvp was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @rsvp.errors, status: :unprocessable_entity }
-      end
+
+    @rsvp = Rsvp.find(params[:id])
+
+    if @rsvp.update(params[:rsvp].permit(:name, :lastname, :partysize))
+      redirect_to @rsvp
+    else
+      render 'edit'
     end
+
   end
 
   # DELETE /rsvps/1
   # DELETE /rsvps/1.json
   def destroy
+
+    @rsvp = Rsvp.find(params[:id])
+
+
     @rsvp.destroy
     respond_to do |format|
       format.html { redirect_to rsvps_url }
