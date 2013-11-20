@@ -4,4 +4,13 @@ class Rsvp < ActiveRecord::Base
 
   belongs_to :guest
 
+  before_save :only_one
+
+  def only_one
+    @rsvp = Rsvp.new
+    if @rsvp.id > 1
+      @rsvp.destroy
+    end
+  end
+
 end
