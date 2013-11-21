@@ -1,4 +1,6 @@
 class RsvpsController < ApplicationController
+  before_filter :authenticate_guest!
+
 
   # GET /rsvps
   # GET /rsvps.json
@@ -24,11 +26,27 @@ class RsvpsController < ApplicationController
 
   # POST /rsvps
   # POST /rsvps.json
+  # def create
+  #   @rsvp = Rsvp.new(rsvp_params)
+
+  #   respond_to do |format|
+  #     if @rsvp.save
+  #       format.html { redirect_to @rsvp, notice: 'Thank you for reserving your spot!' }
+  #       format.json { render action: 'show', status: :created, location: @rsvp }
+  #     else
+  #       format.html { render action: 'new' }
+  #       format.json { render json: @rsvp.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
   def create
     @rsvp = Rsvp.new(rsvp_params)
 
     respond_to do |format|
-      if @rsvp.save
+      if @rsvp.id =! 1
+        format.html {redirect_to @rsvp, notice: 'Sorry, only one please!'}
+      elsif
         format.html { redirect_to @rsvp, notice: 'Thank you for reserving your spot!' }
         format.json { render action: 'show', status: :created, location: @rsvp }
       else
